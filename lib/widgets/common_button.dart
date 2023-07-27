@@ -4,7 +4,14 @@ import 'package:yetlo_app/utils/Colors.dart';
 class CommonButton extends StatelessWidget {
   String label;
   Function()? onTap;
-   CommonButton({super.key, this.label = "CLick Here", this.onTap});
+  double? height;
+  double width;
+  Color backGround;
+   CommonButton({super.key, this.label = "CLick Here", this.onTap,
+     this.height,
+     this.width = double.infinity,
+     this.backGround = PRIMARY_COLOR
+   });
 
 
   @override
@@ -12,9 +19,10 @@ class CommonButton extends StatelessWidget {
     return  InkWell(
       onTap: onTap,
       child: Container(
-        width: double.infinity,
+        width: width,
+        height: height,
         decoration:  BoxDecoration(
-          color: PRIMARY_COLOR,
+          color: backGround,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
