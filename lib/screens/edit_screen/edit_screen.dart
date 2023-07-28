@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,10 +22,11 @@ class EditScreen extends StatelessWidget {
 
   CarouselController buttonCarouselController = CarouselController();
 
-  Uint8List? _imageFile;
+
 
   //Create an instance of ScreenshotController
   ScreenshotController screenshotController = ScreenshotController();
+  Uint8List? _imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -107,54 +110,53 @@ class EditScreen extends StatelessWidget {
                             controller: screenshotController,
                             child: Stack(
                               children: [
-
-                                Container(
-                                  color: Colors.white,
-                                  child: CarouselSlider.builder(
-                                    itemCount:
-                                        controller.frameListResponse?.res?.length,
-                                    itemBuilder: (BuildContext context, int itemIndex,
-                                            int pageViewIndex) =>
-                                        SizedBox(
-                                      width: double.infinity,
-                                      child: Image.network(
-                                        controller
-                                            .frameListResponse!.res![itemIndex].img!,
-                                        height: 600,
-                                        width: 600,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                          return const Center(
-                                              child: Text('Cannot Load Image!'));
-                                        },
-                                      ),
-                                    ),
-                                    carouselController: buttonCarouselController,
-                                    options: CarouselOptions(
-                                      height: 400,
-                                      viewportFraction: 1,
-                                      aspectRatio: 16 / 9,
-                                      initialPage: 0,
-                                      reverse: false,
-                                      autoPlay: false,
-                                      enlargeCenterPage: true,
-                                      enlargeFactor: 0.5,
-                                      scrollDirection: Axis.horizontal,
+                                Positioned(
+                                  top: 40,
+                                  child: Container(
+                                    color: Colors.white,
+                                    child: Image.network(
+                                      res.image!,
+                                      height: 300,
+                                      width: 400,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception, StackTrace? stackTrace) {
+                                        return const Center(
+                                            child: Text('Cannot Load Image!'));
+                                      },
                                     ),
                                   ),
                                 ),
-                                Positioned(
-                                  top: 40,
-                                  child: Image.network(
-                                    res.image!,
-                                    height: 300,
-                                    width: 400,
-                                    errorBuilder: (BuildContext context,
-                                        Object exception, StackTrace? stackTrace) {
-                                      return const Center(
-                                          child: Text('Cannot Load Image!'));
-                                    },
+                                CarouselSlider.builder(
+                                  itemCount:
+                                  controller.frameListResponse?.res?.length,
+                                  itemBuilder: (BuildContext context, int itemIndex,
+                                      int pageViewIndex) =>
+                                      SizedBox(
+                                        width: double.infinity,
+                                        child: Image.network(
+                                          controller
+                                              .frameListResponse!.res![itemIndex].img!,
+                                          height: 600,
+                                          width: 600,
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return const Center(
+                                                child: Text('Cannot Load Image!'));
+                                          },
+                                        ),
+                                      ),
+                                  carouselController: buttonCarouselController,
+                                  options: CarouselOptions(
+                                    height: 400,
+                                    viewportFraction: 1,
+                                    aspectRatio: 16 / 9,
+                                    initialPage: 0,
+                                    reverse: false,
+                                    autoPlay: false,
+                                    enlargeCenterPage: true,
+                                    enlargeFactor: 0.5,
+                                    scrollDirection: Axis.horizontal,
                                   ),
                                 ),
                                 Positioned(
@@ -253,6 +255,7 @@ class EditScreen extends StatelessWidget {
                                         ),
                                       ],
                                     )),
+
 
                               ],
                             ),
